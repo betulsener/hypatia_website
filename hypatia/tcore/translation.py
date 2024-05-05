@@ -1,6 +1,6 @@
 from modeltranslation.translator import register, TranslationOptions
-from .models import About
+from .models import About, Analysis, Category, Blog
 
-@register(About)
-class AboutTranslationOptions(TranslationOptions):
-    fields=('title','content',)
+
+
+

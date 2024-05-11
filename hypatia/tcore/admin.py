@@ -12,6 +12,21 @@ class InputAdmin(admin.ModelAdmin):
 @admin.register(About)
 class AboutAdmin(admin.ModelAdmin):
     list_display=('title',)
+    group_fieldsets = True
+
+    class Media:
+        js = (
+            
+            'https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js',
+            'https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js',
+            'modeltranslation/js/tabbed_translation_fields.js',
+            )
+        
+        css = {
+            'all':
+            ('modeltranslation/css/tabbed_translation_fields.css',)
+            }
+
     def has_add_permission(self, request, obj=None):
         return False
     

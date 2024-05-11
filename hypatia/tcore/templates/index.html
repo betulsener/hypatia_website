@@ -1,21 +1,26 @@
 {% extends 'base.html'%}
 {% load static %}
 
-{% block title %} Homepage Hypatia {% endblock %}
-{% block page_description %} Hypatia Kurumsal İnternet Sitesi {% endblock %}
-{% block keywords %} hypatia, tusaş, öngörü, teknoloji {% endblock %}
+{% block title %} {{setting.title}} {% endblock %}
+{% block page_description %} {{setting.description}} {% endblock %}
+{% block page_keywords %} {{setting.keywords}} {% endblock %}
 {% block extracss %}{% endblock %}
 
 {% block content%}
 <!--Slider-->
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+
+   
     <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="https://via.placeholder.com/800x300" class="d-block w-100" alt="First slide">
+
+        {% for slider in Sliders %}
+        <div class="carousel-item 
+        {% if forloop.first %} active {% endif %}
+        ">
+            <img src="media/{{slider.image}}" class="d-block w-100" alt="{{slider.title}}">
         </div>
-        <div class="carousel-item">
-            <img src="https://via.placeholder.com/800x301" class="d-block w-100" alt="Second slide">
-        </div>
+        {% endfor %}
+        
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -31,20 +36,10 @@
 <!--Hakkımızda-->
 <div class="row mt-4 mb-4">
     <div class="col-md-8">
-        <h2 class="mb-4">Hakkımızda</h2>
-        <p>Biz, Your Company adıyla 20 yılı aşkın bir süredir faaliyet gösteren bir şirketiz.
-            Müşterilerimize kaliteli ürün ve hizmetler sunmak için buradayız. Yenilikçi çözümlerimiz ve uzman ekibimizle
-            her zaman yanınızdayız. Biz, Your Company adıyla 20 yılı aşkın bir süredir faaliyet gösteren bir şirketiz.
-            Müşterilerimize kaliteli ürün ve hizmetler sunmak için buradayız. Yenilikçi çözümlerimiz ve uzman ekibimizle
-            her zaman yanınızdayız.
-            Biz, Your Company adıyla 20 yılı aşkın bir süredir faaliyet gösteren bir şirketiz. Müşterilerimize kaliteli
-            ürün ve hizmetler sunmak için buradayız.
-            Yenilikçi çözümlerimiz ve uzman ekibimizle her zaman yanınızdayız. Biz, Your Company adıyla 20 yılı aşkın
-            bir süredir faaliyet gösteren bir şirketiz.
-            Müşterilerimize kaliteli ürün ve hizmetler sunmak için buradayız. Yenilikçi çözümlerimiz ve uzman ekibimizle
-            her zaman yanınızdayız.
-        </p>
-        <a href="#" class="btn btn-primary">Daha Fazla</a>
+        <h2 class="mb-4">{{Abouts.title}}</h2>
+        <p>{{Abouts.content|safe|truncatechars:800}}</p>
+        
+        <a href="{%url 'abouts'%}" class="btn btn-primary">Daha Fazla</a>
     </div>
 
     <div class="col-md-4">

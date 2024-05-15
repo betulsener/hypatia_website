@@ -54,13 +54,13 @@
 <div class="row mt-4 mb-4">
     <h2 class="mb-4">Paylaşımlar</h2>
     <!-- Card 1 -->
-    {% for input in Inputs %}
+    {% for input in Inputs|slice:"4" %}
     <div class="col-md-3">
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">{{input.title}}</h5>
-                <p class="card-text">{{input.message|safe|truncatechars:400}}</p>
-                <a href="#" class="btn btn-primary">Detaylar</a>
+                <p class="card-text">{{input.message|safe|truncatechars:200}}</p>
+                <a href="{% url 'blog-detail' slug=input.slug %}" class="btn btn-primary">Detaylar</a>
             </div>
         </div>
     </div>
@@ -72,6 +72,10 @@
 
 </div>
 <!--Blogs-->
+<p>
 
+
+ .   
+</p>
 
 {% endblock %}

@@ -2,7 +2,7 @@ from typing import Any
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from django.views.generic import ListView, TemplateView
+from django.views.generic import ListView, TemplateView, DetailView
 from tcore.models import Slider, About, Input
 from django.contrib import messages
 
@@ -33,6 +33,13 @@ class BlogView(ListView):
     template_name= "blog.html"
     context_object_name = "Inputs"
     queryset = Input.objects.all()
+
+class BlogDetailView(DetailView):
+    model = Input
+    template_name = "blog-details.html"
+    context_object_name = "input"
+    slug_url_kwarg = "slug"
+
 
 class ContactView(TemplateView):
     template_name= "input.html"

@@ -1,13 +1,9 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 from django.utils.text import slugify
+from django.utils import timezone
 
-class Input(models.Model):
-    full_name=models.CharField(max_length=100, verbose_name="Ad Soyad")
-    job=models.CharField(max_length=100, verbose_name="Meslek")
-    email=models.EmailField()
-    title=models.CharField(max_length=100, verbose_name="Başlık")
-    message=models.TextField(verbose_name="İleti")
+
 
 class About(models.Model):
     title=models.CharField(max_length=200, verbose_name="Başlık")
@@ -38,23 +34,27 @@ class Category(models.Model):
     
     def __str__(self):
         return self.name
+    
+class Input(models.Model):
+    title = models.CharField(max_length=200, verbose_name="Başlık")
+    full_name = models.CharField(max_length=100, verbose_name="Ad Soyad")
+    job = models.CharField(max_length=100, verbose_name="Meslek")
+    email = models.EmailField()
+    message = models.TextField(verbose_name="İleti")
+    views = models.IntegerField(default=0, verbose_name="Görüntülenme Sayısı")
+    slug = models.SlugField(max_length=200, unique=True, blank=True, editable=False)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Oluşturulma Tarihi")
 
-class Blog(models.Model):
-    title=models.CharField(max_length=200, verbose_name="Başlık")
-    image=models.ImageField(upload_to='blog', verbose_name="Görsel")
-    content=RichTextField(verbose_name="İçerik")
-    category=models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="Kategori")
-    views=models.IntegerField(default=0, verbose_name="Görüntülenme Sayısı")
-    slug=models.SlugField(max_length=200, unique=True, blank=True, editable=False)
-    created=models.DateTimeField(auto_now_add=True, verbose_name="Oluşturulma Tarihi")
-    update=models.DateTimeField(auto_now=True, verbose_name="Güncellenme Tarihi")
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug=slugify(self.title)
-        super(Blog,self).save(*args, **kwargs)
+        super(Input, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
+
+
+
     
 class Setting(models.Model):
     logo_1 = models.ImageField(upload_to='dimg', null=True, blank=True)

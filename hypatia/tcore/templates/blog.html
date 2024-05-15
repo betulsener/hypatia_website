@@ -20,7 +20,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{input.title}}</h5>
                     <p class="card-text">{{input.message|safe|truncatechars:500}}</p>
-                    <a href="#" class="btn btn-primary">Detaylar</a>
+                    <a href="{% url 'blog-detail' slug=input.slug %}" class="btn btn-primary">Detaylar</a>
                 </div>
             </div>
             {% endfor %}

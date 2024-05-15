@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import About, Input, Analysis, Slider, Category, Blog, Setting
+from .models import About, Input, Analysis, Slider, Category, Setting
 from modeltranslation.admin import TranslationAdmin
 
 
@@ -7,7 +7,7 @@ from modeltranslation.admin import TranslationAdmin
 
 @admin.register(Input)
 class InputAdmin(admin.ModelAdmin):
-    list_display=('full_name','email','job','title',)
+    list_display=('full_name','email','job','title','views', 'created_at',)
 
 @admin.register(About)
 class AboutAdmin(admin.ModelAdmin):
@@ -46,9 +46,6 @@ class SliderAdmin(admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     list_display=('name',)
 
-@admin.register(Blog)
-class BlogAdmin(admin.ModelAdmin):
-    list_display=('title', 'views', 'created', 'update', )
 
 @admin.register(Setting)
 class SettingAdmin(admin.ModelAdmin):

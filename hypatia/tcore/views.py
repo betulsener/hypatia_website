@@ -54,6 +54,7 @@ class BlogView(BaseView, ListView):
     template_name= "blog.html"
     context_object_name = "Inputs"
     queryset = Input.objects.all()
+    paginate_by = 4
 
 class BlogDetailView(BaseView, DetailView):
     model = Input
@@ -66,7 +67,17 @@ class BlogDetailView(BaseView, DetailView):
         obj.views+=1
         obj.save()
         return obj
+    
+class BlogSearchView(BaseView, ListView):
+    model = Input
+    template_name = 'blog-search.html'
+    context_object_name = "Inputs"
 
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            return Input.objects.filter(title__icontains=query)
+        return Input.objects.none()
 
 class ContactView(TemplateView):
     template_name= "input.html"

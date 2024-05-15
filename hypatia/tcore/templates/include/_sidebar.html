@@ -5,12 +5,12 @@
 <div class="col-md-4">
     <div class="card mb-3">
         <div class="card-body">
-            <h5 class="card-title">Search</h5>
-            <form>
+            <h5 class="card-title">Arama</h5>
+            <form method="get" action="{% url 'blog-search' %}">
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Search...">
+                    <input type="text" name="q" class="form-control" placeholder="Arama yapın">
                 </div>
-                <button type="submit" class="btn btn-primary">Search</button>
+                <button type="submit" class="btn btn-primary">Bul</button>
             </form>
         </div>
     </div>
@@ -32,17 +32,6 @@
         </div>
     </div>
 
-    <!-- Categories -->
-    <div class="card mb-3">
-        <div class="card-body">
-            <h5 class="card-title">Categories</h5>
-            <!-- List of categories -->
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Category 01</li>
-
-            </ul>
-        </div>
-    </div>
 
     <!-- Tags Cloud -->
     <div style="margin-bottom: 60px !important;" class="card mt-4">

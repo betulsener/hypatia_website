@@ -1,4 +1,4 @@
-from .models import Setting, Category
+from .models import Setting
 
 def SettingList(request):
     '''

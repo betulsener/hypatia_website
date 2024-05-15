@@ -34,6 +34,19 @@ class AboutView(ListView):
     context_object_name="Abouts"
     queryset=About.objects.first()
 
+class TagDetailView(ListView):
+    template_name = 'tag-details.html'
+    context_object_name = 'Inputs'
+
+    def get_queryset(self):
+        tag_name = self.kwargs.get('tag_name')
+        return Input.objects.filter(tags__name__in=[tag_name])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tag_name'] = self.kwargs.get('tag_name')
+        return context
+
 class AnalysisView(TemplateView):
     template_name= "analysis.html"
 

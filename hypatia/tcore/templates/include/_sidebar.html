@@ -51,7 +51,7 @@
             <!-- Tags cloud -->
             <div class="col-md-12">
                 {% for tag in most_common_tags %}
-                <button type="button" class="btn btn-secondary my-2 me-1">{{tag.name}} {{tag.num_times}}</button>
+                <a href="{% url 'tag-detail' tag.name %}"><button type="button" class="btn btn-secondary my-2 me-1">{{tag.name}}{{tag.num_times}}</button></a>
                 {% endfor %}
             </div>
         </div>

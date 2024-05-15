@@ -16,6 +16,7 @@ class IndexView(ListView):
         context = super().get_context_data(**kwargs)
         context['Sliders'] = Slider.objects.all()
         context['Abouts'] = About.objects.first()
+        context['Inputs'] = Input.objects.all()
 
         return context
         
@@ -28,8 +29,10 @@ class AboutView(ListView):
 class AnalysisView(TemplateView):
     template_name= "analysis.html"
 
-class BlogView(TemplateView):
+class BlogView(ListView):
     template_name= "blog.html"
+    context_object_name = "Inputs"
+    queryset = Input.objects.all()
 
 class ContactView(TemplateView):
     template_name= "input.html"

@@ -50,7 +50,9 @@
             <h5 class="card-title">Tags</h5>
             <!-- Tags cloud -->
             <div class="col-md-12">
-                <button type="button" class="btn btn-secondary my-2 me-1">Tag 1</button>
+                {% for tag in most_common_tags %}
+                <button type="button" class="btn btn-secondary my-2 me-1">{{tag.name}} {{tag.num_times}}</button>
+                {% endfor %}
             </div>
         </div>
     </div>

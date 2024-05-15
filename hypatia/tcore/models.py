@@ -1,6 +1,7 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 from django.utils.text import slugify
+from taggit.managers import TaggableManager
 
 
 
@@ -43,6 +44,7 @@ class Input(models.Model):
     views = models.IntegerField(default=0, verbose_name="Görüntülenme Sayısı")
     slug = models.SlugField(max_length=200, unique=True, blank=True, editable=False)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Oluşturulma Tarihi")
+    tags=TaggableManager()
 
     def save(self, *args, **kwargs):
         if not self.slug:

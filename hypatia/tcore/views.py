@@ -5,13 +5,13 @@ from django.urls import reverse
 from django.views.generic import ListView, TemplateView, DetailView
 from tcore.models import Slider, About, Input
 from django.contrib import messages
+from taggit.models import Tag
+from django.db.models import Count
 
 class IndexView(ListView):
     template_name= "index.html"
     model = Slider
 
-
-    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['Sliders'] = Slider.objects.all()
@@ -24,6 +24,8 @@ class BaseView(object):
     def get_context_data(self,**kwargs):
         context = super().get_context_data(**kwargs)
         context['PBlogs']=Input.objects.order_by('-views')[:5]
+        context['most_common_tags'] = Tag.objects.annotate(num_times=Count('taggit_taggeditem_items')).order_by('-num_times')[:5]
+
         return context
         
     
@@ -61,6 +63,7 @@ class ContactView(TemplateView):
         email = request.POST.get('email')
         title = request.POST.get('title')
         message = request.POST.get('message')
+        tags = request.POST.get('tags')
 
         try:
             input_instance = Input.objects.create(
@@ -69,7 +72,13 @@ class ContactView(TemplateView):
                 email=email,
                 title=title,
                 message=message
+
             )
+
+            if tags:
+                tag_list = [tag.strip() for tag in tags.split(',')]
+                input_instance.tags.add(*tag_list)
+
             messages.success(request,'İletiniz başarıyla gönderildi.')
 
         except Exception as e:

@@ -19,6 +19,12 @@ class IndexView(ListView):
         context['Inputs'] = Input.objects.all()
 
         return context
+    
+class BaseView(object):
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        context['PBlogs']=Input.objects.order_by('-views')[:5]
+        return context
         
     
 class AboutView(ListView):
@@ -29,16 +35,22 @@ class AboutView(ListView):
 class AnalysisView(TemplateView):
     template_name= "analysis.html"
 
-class BlogView(ListView):
+class BlogView(BaseView, ListView):
     template_name= "blog.html"
     context_object_name = "Inputs"
     queryset = Input.objects.all()
 
-class BlogDetailView(DetailView):
+class BlogDetailView(BaseView, DetailView):
     model = Input
     template_name = "blog-details.html"
     context_object_name = "input"
     slug_url_kwarg = "slug"
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset=queryset)
+        obj.views+=1
+        obj.save()
+        return obj
 
 
 class ContactView(TemplateView):

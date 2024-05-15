@@ -1,6 +1,5 @@
 from django.contrib import admin
 from .models import About, Input, Analysis, Slider, Category, Setting
-from modeltranslation.admin import TranslationAdmin
 
 
 

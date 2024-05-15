@@ -21,11 +21,12 @@
             <h5 class="card-title mb-4">Popüler Paylaşımlar</h5>
             <ul class="list-group">
                 <!-- Blog 1 -->
+                {% for pblog in PBlogs %}
                 <li class="list-group-item">
-                    <h5 class="card-title">Engaging Content Strategies</h5>
-                    <p class="card-text">Discover effective strategies for creating engaging and valuable
-                        content that resonates with your audience.</p>
+                    <a class="text-decoration-none" href="{% url 'blog-detail' pblog.slug %}"><h5 class="card-title">{{pblog.title}}</h5></a>
+                    <p class="card-text">{{pblog.message|safe|truncatechars:100}}</p>
                 </li>
+                {% endfor %}
 
             </ul>
         </div>

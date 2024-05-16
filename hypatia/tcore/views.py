@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views.generic import ListView, TemplateView, DetailView
-from tcore.models import Slider, About, Input
+from tcore.models import Slider, About, Input, Page
 from django.contrib import messages
 from taggit.models import Tag
 from django.db.models import Count
@@ -109,6 +109,12 @@ class ContactView(TemplateView):
             messages.error(request, f'Mesaj gönderimi başarısız oldu: {e}')
 
         return HttpResponseRedirect(reverse('input'))
+    
+class PageDetailView(BaseView, DetailView):
+    model = Page
+    template_name='page-detail.html'
+    context_object_name="page"
+    slug_url_kwarg="slug"
 
 
 

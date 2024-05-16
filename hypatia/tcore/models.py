@@ -1,5 +1,6 @@
 from django.db import models
 from ckeditor.fields import RichTextField
+from django.urls import reverse
 from django.utils.text import slugify
 from taggit.managers import TaggableManager
 
@@ -68,6 +69,18 @@ class Setting(models.Model):
     mail = models.EmailField(verbose_name="Mail adresi")
     other_url=models.URLField(max_length=255, verbose_name="Resmi web sitesi")
 
+class Page(models.Model):
+    title = models.CharField(max_length=200, verbose_name="Başlık")
+    content = RichTextField(verbose_name="İçerik")
+    slug = models.SlugField(max_length=200, blank=True, editable=False)
+
+    def get_absolute_url(self):
+        return reverse('page-detail', kwargs={'slug':self.slug})
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug=slugify(self.title)
+        super(Page, self).save(*args, **kwargs)
 
 
 

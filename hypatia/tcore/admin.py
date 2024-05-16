@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import About, Input, Analysis, Slider, Category, Setting
+from .models import About, Input, Analysis, Slider, Category, Setting, Page
 
 
 
@@ -54,5 +54,14 @@ class SettingAdmin(admin.ModelAdmin):
     
     def has_delete_permission(self, request, obj=None):
         return False
+    
+@admin.register(Page)
+class PageAdmin(admin.ModelAdmin):
+    list_display=('title','slug','slug_url')
+
+    def slug_url(self, obj):
+        url_path=obj.get_absolute_url()
+        return url_path
+    slug_url.short_description='Detay Linki'
      
     

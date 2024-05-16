@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views.generic import ListView, TemplateView, DetailView
-from tcore.models import Slider, About, Input, Page
+from tcore.models import Slider, About, Input, Page, Setting
 from django.contrib import messages
 from taggit.models import Tag
 from django.db.models import Count
@@ -33,6 +33,7 @@ class AboutView(ListView):
     template_name= "about.html"
     context_object_name="Abouts"
     queryset=About.objects.first()
+   
 
 class TagDetailView(ListView):
     template_name = 'tag-details.html'

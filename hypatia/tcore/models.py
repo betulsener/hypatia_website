@@ -9,6 +9,10 @@ from taggit.managers import TaggableManager
 class About(models.Model):
     title=models.CharField(max_length=200, verbose_name="Başlık")
     content=RichTextField(verbose_name="İçerik")
+    image=models.ImageField(upload_to='about', verbose_name="Görsel")
+    image2=models.ImageField(upload_to='about', verbose_name="Görsel2")
+
+    
 
 class Analysis(models.Model):
     title=models.CharField(max_length=200, verbose_name="Başlık")

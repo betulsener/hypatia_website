@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import About, Input, Analysis, Slider, Category, Setting, Page
+from .models import About, Input, Analysis, Slider, Setting, Page
 
 
 
@@ -36,15 +36,13 @@ class AboutAdmin(admin.ModelAdmin):
     
 @admin.register(Analysis)
 class AnalysisAdmin(admin.ModelAdmin):
-    list_display=('title',)
+    list_display=('wordcloud','keywords')
 
 @admin.register(Slider)
 class SliderAdmin(admin.ModelAdmin):
     list_display=('title', 'image', )
 
-@admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    list_display=('name',)
+
 
 
 @admin.register(Setting)

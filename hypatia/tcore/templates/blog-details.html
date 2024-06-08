@@ -19,6 +19,8 @@
                 <div class="card-body">
                     <p>Görüntülenme sayısı: {{input.views}}</p>
                     <p class="card-text">{{input.message|safe}}</p>
+                    <p class="card-text">Anahtar Kelimeler: {{input.keywords}}</p>
+                    <p class="card-text">Anahtar kelimeler NLP analizi sonucu elde edilmiştir.</p>
                     <p>Etiketler:</p>
                     {% for tag in input.tags.all %}
                     <a href="{% url 'tag-detail' tag.name %}"><button type="button" class="btn btn-secondary my-2 me-1">{{tag.name}}</button></a>

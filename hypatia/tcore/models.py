@@ -3,6 +3,7 @@ from ckeditor.fields import RichTextField
 from django.urls import reverse
 from django.utils.text import slugify
 from taggit.managers import TaggableManager
+from django.utils.html import mark_safe
 
 
 
@@ -12,33 +13,12 @@ class About(models.Model):
     image=models.ImageField(upload_to='about', verbose_name="Görsel")
     image2=models.ImageField(upload_to='about', verbose_name="Görsel2")
 
-    
-
-class Analysis(models.Model):
-    title=models.CharField(max_length=200, verbose_name="Başlık")
-    content=RichTextField(verbose_name="İçerik")
-    slug=models.SlugField(max_length=200, blank=True, editable=False)
-    
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug=slugify(self.title)
-        super(Analysis,self).save(*args, **kwargs)
 
 class Slider(models.Model):
     title=models.CharField(max_length=200, verbose_name="Başlık")
     image=models.ImageField(upload_to='slider', verbose_name="Görsel")
 
-class Category(models.Model):
-    name=models.CharField(max_length=200, verbose_name="İsim")
-    slug=models.SlugField(max_length=100, unique=True, blank=True, editable=False)
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug=slugify(self.name)
-        super(Category,self).save(*args, **kwargs)
-    
-    def __str__(self):
-        return self.name
+
     
 class Input(models.Model):
     title = models.CharField(max_length=200, verbose_name="Başlık")
@@ -50,6 +30,7 @@ class Input(models.Model):
     slug = models.SlugField(max_length=200, unique=True, blank=True, editable=False)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Oluşturulma Tarihi")
     tags=TaggableManager()
+    keywords = models.CharField(max_length=200, verbose_name="Anahtar Kelimeler", blank=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -58,10 +39,19 @@ class Input(models.Model):
 
     def __str__(self):
         return self.title
-
-
-
     
+class Analysis(models.Model):
+    wordcloud=models.ImageField(upload_to='analysis', verbose_name='Kelime Bulutu')
+    keywords=models.CharField(max_length=255, verbose_name="Anahtar Kelimeler")
+    def wordcloud_image(self, obj):
+        if obj.wordcloud:
+            return mark_safe(f'<img src="{obj.wordcloud.url}" width="100" height="100" />')
+        return 'No Image'
+
+    wordcloud_image.short_description = 'Wordcloud'
+    wordcloud_image.allow_tags = True
+
+
 class Setting(models.Model):
     logo_1 = models.ImageField(upload_to='dimg', null=True, blank=True)
     logo_2 = models.ImageField(upload_to='dimg', null=True, blank=True)

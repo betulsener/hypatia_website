@@ -20,6 +20,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{input.title}}</h5>
                     <p class="card-text">{{input.message|safe|truncatechars:500}}</p>
+                    <p class="card-text">Anahtar Kelimeler: {{input.keywords}}</p>
                     <a href="{% url 'blog-detail' slug=input.slug %}" class="btn btn-primary">Detaylar</a>
                 </div>
             </div>

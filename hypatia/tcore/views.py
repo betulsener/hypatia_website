@@ -7,6 +7,8 @@ from tcore.models import Slider, About, Input, Page, Setting, Analysis
 from django.contrib import messages
 from taggit.models import Tag
 from django.db.models import Count
+from .models import Scenario
+from .forms import ScenarioForm
 
 class IndexView(ListView):
     template_name= "index.html"
@@ -119,5 +121,18 @@ class PageDetailView(BaseView, DetailView):
     context_object_name="page"
     slug_url_kwarg="slug"
 
+def scenario_page(request):
+    if request.method == 'POST':
+        form = ScenarioForm(request.POST, request.FILES)
+        if form.is_valid():
+            scenario = form.save(commit=False)
+            scenario.uploaded_by = request.user
+            scenario.save()
+            return redirect('scenario_page')
+    else:
+        form = ScenarioForm()
+
+    scenarios = Scenario.objects.all()
+    return render(request, 'scenario_page.html', {'form': form, 'scenarios': scenarios})
 
 
